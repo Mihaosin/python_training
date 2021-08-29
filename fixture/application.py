@@ -6,9 +6,13 @@ class Application:
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
 
-    def login(self, username, password):
+    def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
+
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
         wd.find_element_by_name("pass").click()
@@ -16,10 +20,15 @@ class Application:
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
+    def open_groups_page(self):
+        wd=self.wd
+        # open group page
+        wd.find_element_by_link_text("groups").click()
+
     def create_group(self, group):
         wd = self.wd
         # open group page
-        wd.find_element_by_link_text("groups").click()
+        self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
         # fill group form
