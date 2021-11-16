@@ -3,6 +3,7 @@ from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
 
+
 class Application:
 
     def __init__(self):
@@ -18,6 +19,3 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
-
-
-
