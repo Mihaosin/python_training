@@ -17,16 +17,8 @@ class GroupHelper:
         self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
-        # fill group form
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group.name)
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        # fill group firm
+        self.fill_group(group)
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_group_page()
@@ -40,6 +32,31 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         self.return_to_group_page()
 
+    def edit_first_group(self, group):
+        wd = self.app.wd
+        self.open_groups_page()
+        # select 1st group
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_name("edit").click()
+        # fill group firm
+        self.fill_group(group)
+        # submit group creation
+        wd.find_element_by_name("update").click()
+        self.return_to_group_page()
+
+    def fill_group(self, group):
+        wd = self.app.wd
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_header", group.header)
+        self.change_field_value("group_footer", group.footer)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
 
     # return to group page
     def return_to_group_page(self):

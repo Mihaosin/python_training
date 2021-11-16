@@ -15,6 +15,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
+        self.wd.implicitly_wait(5)
         wd.get("http://localhost/addressbook/")
 
     def destroy(self):
